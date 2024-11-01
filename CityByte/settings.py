@@ -128,7 +128,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis-15568.c277.us-east-1-3.ec2.redns.redis-cloud.com:15568",
+        "LOCATION": "redis://default:7qkraIulW0kOb43fzG6nmJcbNkVxJWSF@redis-15568.c277.us-east-1-3.ec2.redns.redis-cloud.com:15568",
         "TIMEOUT": 3600,
     }
 }
