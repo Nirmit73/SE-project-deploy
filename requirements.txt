@@ -27,6 +27,7 @@ iniconfig==1.1.1
 itsdangerous==2.1.2
 Jinja2==3.1.2
 locust==2.13.1
+markdown>=3.3.0
 MarkupSafe==2.1.1
 mccabe==0.7.0
 msgpack==1.0.4
@@ -56,6 +57,7 @@ zope.interface==5.5.2
 typing-extensions>=4.7
 packaging>=23.2
 pydantic>=2.9.2
+langchain>=0.0.1
 langchain-core>=0.3.14
 langchain-google-genai>=0.0.1
 sqlalchemy>=2.0.36
