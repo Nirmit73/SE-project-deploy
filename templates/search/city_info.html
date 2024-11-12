@@ -1,12 +1,11 @@
-
-
 {% extends "../base.html" %}
 {% load crispy_forms_tags %}
 
-{% block title %}City{% endblock %}
+{% block title %}
+City
+{% endblock %}
 
 {% block content %}
-
 <style>
   body {
     padding: 0;
@@ -138,9 +137,46 @@
     justify-content: center;
     margin: 2rem 0;
   }
+
+  /* Chatbot Icon and Window Styles */
+  #chat-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  #chat-window {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 300px;
+    height: 400px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+  }
+
+  #chat-output {
+    height: 300px;
+    overflow-y: auto;
+  }
+
+  #chat-input-section {
+    margin-top: 10px;
+  }
 </style>
 
-<div class="container-fluid" style="padding: 0;">
+<div class="container-fluid" style="padding: 0">
   <div
     class="p-5 text-center bg-image"
     style="background-image: url('{{ photo_link }}'); background-size: cover; background-position: center; height: 50vh;"
@@ -149,7 +185,7 @@
       <div class="d-flex justify-content-center align-items-center h-100">
         <div class="text-white">
           {% if weather_info %}
-          <h1 style="font-size: 5rem; color: #f39c12;">
+          <h1 style="font-size: 5rem; color: #f39c12">
             {{ weather_info.city_name }}
           </h1>
           <h4 class="mb-3">
@@ -161,7 +197,7 @@
     </div>
   </div>
 
-  <div style="width: 100%;">
+  <div style="width: 100%">
     <span
       class="fa fa-heart fav"
       id="fav-toggle"
@@ -170,62 +206,62 @@
   </div>
 
   {% if weather_info %}
-  <div class="d-flex flex-wrap justify-content-center" style="margin: 2rem;">
-    <div class="card text-center" style="width: 10rem;">
+  <div class="d-flex flex-wrap justify-content-center" style="margin: 2rem">
+    <div class="card text-center" style="width: 10rem">
       <div class="card-body">
         <div class="card-subtitle">Temperature</div>
         <div class="card-text">{{ weather_info.temp }} °C</div>
       </div>
     </div>
-    <div class="card text-center" style="width: 10rem;">
+    <div class="card text-center" style="width: 10rem">
       <div class="card-body">
         <div class="card-subtitle">RealFeel Temperature</div>
         <div class="card-text">{{ weather_info.app_temp }} °C</div>
       </div>
     </div>
-    <div class="card text-center" style="width: 10rem;">
+    <div class="card text-center" style="width: 10rem">
       <div class="card-body">
         <div class="card-subtitle">Pressure</div>
         <div class="card-text">{{ weather_info.pres }} mb</div>
       </div>
     </div>
-    <div class="card text-center" style="width: 10rem;">
+    <div class="card text-center" style="width: 10rem">
       <div class="card-body">
         <div class="card-subtitle">Wind Speed</div>
         <div class="card-text">{{ weather_info.wind_spd }} m/s</div>
       </div>
     </div>
-    <div class="card text-center" style="width: 10rem;">
+    <div class="card text-center" style="width: 10rem">
       <div class="card-body">
         <div class="card-subtitle">Wind Direction</div>
         <div class="card-text">{{ weather_info.wind_dir }} °</div>
       </div>
     </div>
-    <div class="card text-center" style="width: 10rem;">
+    <div class="card text-center" style="width: 10rem">
       <div class="card-body">
         <div class="card-subtitle">Cloud Coverage</div>
         <div class="card-text">{{ weather_info.clouds }} %</div>
       </div>
     </div>
-    <div class="card text-center" style="width: 10rem;">
+    <div class="card text-center" style="width: 10rem">
       <div class="card-body">
         <div class="card-subtitle">Precipitation</div>
         <div class="card-text">{{ weather_info.precip }} mm/hr</div>
       </div>
     </div>
-    <div class="card text-center" style="width: 10rem;">
+    <div class="card text-center" style="width: 10rem">
       <div class="card-body">
         <div class="card-subtitle">UV Index</div>
         <div class="card-text">{{ weather_info.uv }}</div>
       </div>
     </div>
-    <div class="card text-center" style="width: 10rem;">
+    <div class="card text-center" style="width: 10rem">
       <div class="card-body">
         <div class="card-subtitle">Sunrise</div>
         <div class="card-text">{{ weather_info.sunrise }} AM</div>
       </div>
     </div>
-    <div class="card text-center" style="width: 10rem;">
+    <div class="card text-center" style="width: 10rem">
       <div class="card-body">
         <div class="card-subtitle">Sunset</div>
         <div class="card-text">{{ weather_info.sunset }} PM</div>
@@ -233,13 +269,12 @@
     </div>
   </div>
 
-
   <div class="section">
     <h2 class="section-heading">Create Your Itinerary</h2>
 
     <form method="POST" action="{% url 'city_info' city %}" class="text-center">
       {% csrf_token %}
-      <label for="days" style="font-size: 1.2rem; color: #f39c12;">
+      <label for="days" style="font-size: 1.2rem; color: #f39c12">
         Enter the number of days for the itinerary:
       </label>
       <input
@@ -248,7 +283,7 @@
         name="days"
         min="1"
         required
-        style="margin-left: 0.5rem; padding: 5px; border-radius: 4px;"
+        style="margin-left: 0.5rem; padding: 5px; border-radius: 4px"
       />
       <button type="submit" class="btn btn-primary mt-2">
         Create Itinerary
@@ -265,9 +300,9 @@
   {% endif %}
 
   <h2 class="section-heading">Top Rated Dining Spots</h2>
-  <div class="d-flex flex-wrap justify-content-center" style="margin: 1rem;">
+  <div class="d-flex flex-wrap justify-content-center" style="margin: 1rem">
     {% for place in dining_info.results %}
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 18rem">
       <img
         src="{% url 'info:place_photo' %}?fsq_id={{ place.fsq_id }}"
         class="card-img-top"
@@ -289,9 +324,9 @@
   </div>
 
   <h2 class="section-heading">Top Landmark Spots</h2>
-  <div class="d-flex flex-wrap justify-content-center" style="margin: 1rem;">
+  <div class="d-flex flex-wrap justify-content-center" style="margin: 1rem">
     {% for place in outdoor_info.results %}
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 18rem">
       <img
         src="{% url 'info:place_photo' %}?fsq_id={{ place.fsq_id }}"
         class="card-img-top"
@@ -313,9 +348,9 @@
   </div>
 
   <h2 class="section-heading">Top Arts Spots</h2>
-  <div class="d-flex flex-wrap justify-content-center" style="margin: 1rem;">
+  <div class="d-flex flex-wrap justify-content-center" style="margin: 1rem">
     {% for place in arts_info.results %}
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 18rem">
       <img
         src="{% url 'info:place_photo' %}?fsq_id={{ place.fsq_id }}"
         class="card-img-top"
@@ -338,9 +373,9 @@
 
   {% if airport_info.results %}
   <h2 class="section-heading">Airports</h2>
-  <div class="d-flex flex-wrap justify-content-center" style="margin: 1rem;">
+  <div class="d-flex flex-wrap justify-content-center" style="margin: 1rem">
     {% for place in airport_info.results %}
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 18rem">
       <img
         class="airport-info-img"
         src="{% url 'info:place_photo' %}?fsq_id={{ place.fsq_id }}"
@@ -363,7 +398,10 @@
   {% endif %}
 
   <div class="news-button-container">
-    <a href="{% url 'city_news' city=city country=country %}" class="btn btn-primary">
+    <a
+      href="{% url 'city_news' city=city country=country %}"
+      class="btn btn-primary"
+    >
       View Latest News in {{ city }}
     </a>
   </div>
@@ -395,5 +433,74 @@
     {% endif %}
   </div>
 </div>
+
+<!-- Chatbot Icon -->
+<div id="chat-icon" onclick="toggleChatWindow()">
+  <i class="fa fa-comments"></i>
+</div>
+
+<!-- Chatbot Modal -->
+<div id="chat-window">
+  <div id="chat-output">
+    <p>
+      <strong>Bot:</strong> Hello, what do you want to know about {{
+      weather_info.city_name }}?
+    </p>
+  </div>
+  <div id="chat-input-section">
+    <input type="text" id="user-input" placeholder="Type your question..." />
+    <button id="send-button">Send</button>
+  </div>
+</div>
+
+<script>
+  // Function to toggle the chatbot window
+  function toggleChatWindow() {
+    const chatWindow = document.getElementById("chat-window");
+    chatWindow.style.display = chatWindow.style.display === "none" ? "block" : "none";
+  }
+
+  // Handle sending queries to the chatbot
+  document.getElementById("send-button").addEventListener("click", function() {
+    const query = document.getElementById("user-input").value;
+
+    if (query) {
+      fetch("/chatbot/query/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: JSON.stringify({query: query})
+      })
+      .then(response => response.json())
+      .then(data => {
+        const chatOutput = document.getElementById("chat-output");
+        chatOutput.innerHTML += `<p><strong>You:</strong> ${query}</p>`;
+        chatOutput.innerHTML += `<p><strong>Bot:</strong> ${data.response || "Sorry, I didn't understand that."}</p>`;
+        document.getElementById("user-input").value = ""; // Clear the input field
+      })
+      .catch(error => console.error("Error:", error));
+    }
+  });
+
+  var favBtn = document.getElementById("fav-toggle");
+    {% if isInFav %}
+        favBtn.classList.toggle("checked");
+        console.log("CHECKED")
+    {% endif %}
+    function favToggle(event){
+        const url = "{% url 'addToFav' %}?city={{city}}&country={{country}}"
+        fetch(url).then(function(response) {
+            return response.json();
+            }).then(function(data) {
+            console.log(data);
+            }).catch(function() {
+            console.log("Booo");
+            });
+        favBtn.classList.toggle("checked");
+
+    }
+</script>
 
 {% endblock %}
